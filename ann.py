@@ -55,6 +55,23 @@ sc = StandardScaler()
 X_train = sc.fit_transform(X_train)
 X_test = sc.transform(X_test)
 
+#------------------- PART 1 clear--------------------
+
+#part 2 build ANN
+
+#import keras
+import keras
+#import 2 modules
+#sequential module is to initialize neural network
+#dense module to build layers neural network
+from keras.models import Sequential
+from keras.layers import Dense
+
+#initialize NN using sequential, defining sequence of layer
+classifier = Sequential() #we use classification because were going to predict tje tested result
+#using classifier
+
+
 
 
 
