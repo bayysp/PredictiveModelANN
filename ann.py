@@ -126,11 +126,22 @@ classifier.compile(
 #if we have binary outcome, logaritmic loss function called binary_crossentropy, if more than 2 , called it by categorical_crossentropy
 #third parameter is metric (the criterion that we choose to evalute the model) to improve the model performance
 #we use accuracy criterion
+
+#we complete build ann but not making connection to training set
 	
 #----------- PART 3 is finished-----------------
 
 #part 4 is we gonna see algorithm in action
+
 #choose the number of epochs (the number of times we are training our a and n on the whole training set)
 #going to see how stochastic gradient descent in action
 #gonna see how our a and n model is trained
 #and how to improving accuracy at each round that is at epoch
+
+classifier.fit(
+		X_train,
+		Y_train,
+		batch_size=10,
+		epochs=100)
+#first parameter is the dataset that we want to train
+#second parameter is output of dependent variable that we train
