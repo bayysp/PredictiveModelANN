@@ -93,6 +93,14 @@ classifier.add(Dense(
 
 #based on Ku rill's tutorial, we make a 6 nodes in hidden layer (11(as a independent var) - 1(output var)) = 6
 
+#next step is add second hidden layer
+classifier.add(Dense(
+		units = 6,
+		kernel_initializer="uniform",
+		activation="relu"
+		))
+
+#adding output layer (final layer)
 
 
 
