@@ -71,6 +71,29 @@ from keras.layers import Dense
 classifier = Sequential() #we use classification because were going to predict tje tested result
 #using classifier
 
+#add first layer(input layer) and first hiddent layer
+#because we have 11 independent var, then we will make 11 input layer
+
+#after build input layer, build a first hidden layer with the activation function using rectifier function
+#sigmoid function is good for output layer
+
+classifier.add(Dense(
+		units = 6,
+		kernel_initializer="uniform",
+		activation="relu",
+		input_dim = 11
+		)) 
+#first parameter is number of nodes what we want to add
+#second parameter is init to randomly small number close to 0
+#third parameter is activation-function
+#fourth parameter is sum of nodes input layer
+
+#execute line 80, at the same time, input and first hidden layer were added
+
+
+#based on Ku rill's tutorial, we make a 6 nodes in hidden layer (11(as a independent var) - 1(output var)) = 6
+
+
 
 
 
