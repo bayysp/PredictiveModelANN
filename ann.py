@@ -85,7 +85,7 @@ classifier.add(Dense(
 		)) 
 #first parameter is number of nodes what we want to add
 #second parameter is init to randomly small number close to 0
-#third parameter is activation-function
+#third parameter is activation-function (relu is rectifier function)
 #fourth parameter is sum of nodes input layer
 
 #execute line 80, at the same time, input and first hidden layer were added
@@ -100,15 +100,37 @@ classifier.add(Dense(
 		activation="relu"
 		))
 
-#adding output layer (final layer)
+#adding output layer (final layer), sum of units is 1 because we just have 1 output
+classifier.add(Dense(
+		units = 1,
+		kernel_initializer="uniform",
+		activation="sigmoid"
+		))
+#activation we use sigmoid because we want to make a probabilistic output
 
+#NB we can use softmax as activation, softmax is sigmoid but it applied if we have more than 2 categories
 
+# ---------- PART 2 build ANN architecture finish -----------
 
+#part 3 is compile ANN, basically applying stochastic gradient descent
 
+#compiling ANN
+classifier.compile(
+		optimizer = "adam",
+		loss="binary_crossentropy",
+		metrics=['accuracy']
+		)
 
+#first parameter (optimizer = adam )is type of stocastic gradient descent which very efficient to find optimum weight
+#second parameter is loss function, loss func was the sum of squared errors
+#if we have binary outcome, logaritmic loss function called binary_crossentropy, if more than 2 , called it by categorical_crossentropy
+#third parameter is metric (the criterion that we choose to evalute the model) to improve the model performance
+#we use accuracy criterion
+	
+#----------- PART 3 is finished-----------------
 
-
-
-
-
- 
+#part 4 is we gonna see algorithm in action
+#choose the number of epochs (the number of times we are training our a and n on the whole training set)
+#going to see how stochastic gradient descent in action
+#gonna see how our a and n model is trained
+#and how to improving accuracy at each round that is at epoch
