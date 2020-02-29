@@ -160,3 +160,34 @@ Y_predict = (Y_predict > 0.5)
 from sklearn.metrics import confusion_matrix
 cm = confusion_matrix(Y_test, Y_predict)
 #to find the accuracy write this in the console : (TP+FN)/sum_of_test_data "(1547+142)/2000"
+
+#------------------ COMPLETE -------------------
+
+#example, there is a new data;
+"""
+	'CreditScore' : 600,
+	'Geography' : 'France',
+	'Gender' : 'Male',
+	'Age' : 40,
+	'Tenure' : 3,
+	'Balance' : 60000,
+	'NumOfProducts' : 2,
+	'HasCrCard' : 1,
+	'IsActiveMember' : 1,
+	'EstimatedSalary' : 50000
+"""
+
+#if you want to add new test data, there is some step that should you do
+
+#because in testing we have 2 dummy var, we should compare it based on X variable
+#look into X var, if the country is france, then the dummy var is 0 and 0
+#and for the gender compare it too , if female the value is 0 and the male is 1
+#dont forget do standarization using StandarScaller
+
+#this is the code :
+new_prediction = classifier.predict(
+		sc.transform(
+				np.array([[0,0,600,1,40,3,60000,2,1,1,50000]])
+				)
+		)
+new_prediction = (new_prediction > 0.5)
