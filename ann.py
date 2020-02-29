@@ -151,3 +151,12 @@ classifier.fit(
 #part 5 is we gonna make an prediction with classifier
 
 Y_predict = classifier.predict(X_test)
+
+#after we get the predict value, convert it into boolean with threshold
+Y_predict = (Y_predict > 0.5)
+
+#after we make an prediction, we need make a confusion matrix to find the accuracy of testing data
+
+from sklearn.metrics import confusion_matrix
+cm = confusion_matrix(Y_test, Y_predict)
+#to find the accuracy write this in the console : (TP+FN)/sum_of_test_data "(1547+142)/2000"
