@@ -145,3 +145,9 @@ classifier.fit(
 		epochs=100)
 #first parameter is the dataset that we want to train
 #second parameter is output of dependent variable that we train
+
+#----------- PART 4 is finished -----------------
+
+#part 5 is we gonna make an prediction with classifier
+
+Y_predict = classifier.predict(X_test)
