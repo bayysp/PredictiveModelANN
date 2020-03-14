@@ -74,7 +74,7 @@ classifier = Sequential() #we use classification because were going to predict t
 #add first layer(input layer) and first hiddent layer
 #because we have 11 independent var, then we will make 11 input layer
 
-#after build input layer, build a first hidden layer with the activation function using rectifier function
+#build a first hidden layer with the activation function using rectifier function
 #sigmoid function is good for output layer
 
 classifier.add(Dense(
@@ -82,7 +82,7 @@ classifier.add(Dense(
 		kernel_initializer="uniform",
 		activation="relu",
 		input_dim = 11
-		)) 
+		))
 #first parameter is number of nodes what we want to add
 #second parameter is init to randomly small number close to 0
 #third parameter is activation-function (relu is rectifier function)
@@ -91,7 +91,8 @@ classifier.add(Dense(
 #execute line 80, at the same time, input and first hidden layer were added
 
 
-#based on Ku rill's tutorial, we make a 6 nodes in hidden layer (11(as a independent var) - 1(output var)) = 6
+#based on Ku rill's tutorial, we make a 6 nodes in hidden layer 
+#(11(as a independent var) - 1(output var)) = 6
 
 #next step is add second hidden layer
 classifier.add(Dense(
@@ -121,10 +122,13 @@ classifier.compile(
 		metrics=['accuracy']
 		)
 
-#first parameter (optimizer = adam )is type of stocastic gradient descent which very efficient to find optimum weight
+#first parameter (optimizer = adam )is type of stocastic gradient descent which 
+#very efficient to find optimum weight
 #second parameter is loss function, loss func was the sum of squared errors
-#if we have binary outcome, logaritmic loss function called binary_crossentropy, if more than 2 , called it by categorical_crossentropy
-#third parameter is metric (the criterion that we choose to evalute the model) to improve the model performance
+#if we have binary outcome, logaritmic loss function called binary_crossentropy, 
+#if more than 2 , called it by categorical_crossentropy
+#third parameter is metric (the criterion that we choose to evalute the model) 
+#to improve the model performance
 #we use accuracy criterion
 
 #we complete build ann but not making connection to training set
@@ -185,9 +189,69 @@ cm = confusion_matrix(Y_test, Y_predict)
 #dont forget do standarization using StandarScaller
 
 #this is the code :
-new_prediction = classifier.predict(
+""" new_prediction = classifier.predict(
 		sc.transform(
 				np.array([[0,0,600,1,40,3,60000,2,1,1,50000]])
 				)
 		)
 new_prediction = (new_prediction > 0.5)
+"""
+
+# PART 5 make a evaluating of ANN
+#we need to make a evaluating because if we trained the dataset for several times,
+#the accuray will decreased (it make a some variance of accuracy, that's not good for our model)
+
+from keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.model_selection import cross_val_score
+from keras.models import Sequential
+from keras.layers import Dense
+
+def build_classifier():
+	classifier = Sequential()
+	
+	classifier.add(Dense(
+		units = 6,
+		kernel_initializer="uniform",
+		activation="relu",
+		input_dim = 11
+		))
+	
+	classifier.add(Dense(
+		units = 6,
+		kernel_initializer="uniform",
+		activation="relu"
+		))
+	
+	classifier.add(Dense(
+		units = 1,
+		kernel_initializer="uniform",
+		activation="sigmoid"
+		))
+	
+	classifier.compile(
+		optimizer = "adam",
+		loss="binary_crossentropy",
+		metrics=['accuracy']
+		)
+	
+	return classifier
+
+#make a classifier
+classifier = KerasClassifier(
+		build_fn=build_classifier,
+		batch_size = 10,
+		nb_epoch = 100)
+
+accuracies = cross_val_score(
+		estimator=classifier,
+		X=X_train,
+		y=Y_train,
+		cv=10,
+		n_jobs=1)
+
+mean = accuracies.mean()
+variance= accuracies.std()
+#estimator is the object implementing fit (will be trained)
+#cv is the number of folds that we will use
+#n_jobs is the number of cpu will used, -1 use all cpu,
+#if you want to use -1, you need to install tensorflow-gpu
